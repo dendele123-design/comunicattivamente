@@ -296,7 +296,7 @@ else:
     
     st.write("")
     col_a, col_b = st.columns(2)
-    with col_a: st.link_button("📘 SCARICA L'EBOOK", "https://yourlink.com", type="primary")
+    with col_a: st.link_button("📘 SCARICA L'EBOOK", "https://www.comunicattivamente.it/wp-content/uploads/2026/01/ansia-spa-comunicattivamente-daniele-salvatori.pdf", type="primary")
     with col_b: st.link_button("📅 PRENOTA CONSULENZA", "mailto:daniele@comunicattivamente.it")
 
     # CONTATTI
