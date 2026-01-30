@@ -2,7 +2,7 @@ import streamlit as st
 import time
 
 # --- CONFIGURAZIONE PAGINA ---
-st.set_page_config(page_title="Ansia S.p.A. - Diagnosi Aziendale", page_icon="🐹", layout="centered")
+st.set_page_config(page_title="Ansia S.p.A. - Diagnosi Aziendale", page_icon="🎯", layout="centered")
 
 # --- STILE CSS PERSONALIZZATO ---
 st.markdown("""
