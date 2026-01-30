@@ -2,7 +2,7 @@ import streamlit as st
 import time
 
 # --- CONFIGURAZIONE PAGINA ---
-st.set_page_config(page_title="Ansia S.p.A. - Diagnosi Aziendale", page_icon="🐹", layout="centered")
+st.set_page_config(page_title="Ansia S.p.A. - Diagnosi Aziendale", page_icon="🟢", layout="centered")
 
 # --- STILE CSS PERSONALIZZATO ---
 st.markdown("""
@@ -19,11 +19,20 @@ st.markdown("""
 domande = [
     {
         "area": "AREA 1: IL SANGUE (I SOLDI)",
+        "testo": "SAI ESATTAMENTE QUANTO HAI GUADAGNATO IERI?",
+        "sotto": "(Attenzione: non quanto hai incassato. Quanto ti è rimasto pulito).",
+        "lezione": "Il fatturato è vanità. Se incassi 1.000€ ma ne hai spesi 950€ per generarli, sei un volontario, non un imprenditore. Guidare guardando solo l'incasso è come guidare guardando solo il tachimetro e non la benzina: corri forte, ma ti fermerai all'improvviso",
+        "punti": 1
+    },
+
+   {
+        "area": "AREA 1: IL SANGUE (I SOLDI)",
         "testo": "QUANDO FAI UN PREZZO, VAI A 'SENTIMENTO'?",
         "sotto": "(O guardi cosa fanno i concorrenti e ti metti un po' sotto?)",
         "lezione": "Il 'prezzo di mercato' è una bugia. Se il tuo concorrente sta fallendo e tu copi i suoi prezzi, fallirai con lui. Il prezzo deve coprire i TUOI costi e garantirti il TUO margine.",
         "punti": 1
     },
+
     {
         "area": "AREA 2: IL TEMPO (LA RUOTA)",
         "testo": "SE TI ASSENTI 3 GIORNI, L'AZIENDA SI FERMA?",
