@@ -230,7 +230,7 @@ if 'show_lesson' not in st.session_state: st.session_state.show_lesson = False
 
 # --- INTERFACCIA ---
 st.image("https://www.comunicattivamente.it/wp-content/uploads/2023/logo-comunicattivamente.png", width=200) 
-st.title("🐹 ANSIA S.P.A.")
+st.title("🎯 ANSIA S.P.A.")
 st.subheader("Diagnosi per Titolari Criceti")
 
 if st.session_state.step < len(domande):
