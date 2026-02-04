@@ -2,7 +2,7 @@ import streamlit as st
 import time
 
 # --- CONFIGURAZIONE PAGINA ---
-st.set_page_config(page_title="Ansia S.p.A. - Diagnosi", page_icon="🐹", layout="centered")
+st.set_page_config(page_title="Ansia S.p.A. - Diagnosi", page_icon="🎯", layout="centered")
 
 # --- STILE CSS (Look Professionale & Aggressivo - Anti Dark Mode) ---
 st.markdown("""
@@ -140,7 +140,7 @@ if 'show_lesson' not in st.session_state: st.session_state.show_lesson = False
 
 # --- HEADER ---
 st.image("https://www.comunicattivamente.it/wp-content/uploads/2023/logo-comunicattivamente.png", width=180)
-st.title("🐹 ANSIA S.P.A.")
+st.title("🎯 ANSIA S.P.A.")
 
 # --- LOGICA TEST ---
 if st.session_state.step < len(domande):
