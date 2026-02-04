@@ -4,15 +4,100 @@ import time
 # --- CONFIGURAZIONE PAGINA ---
 st.set_page_config(page_title="Ansia S.p.A. - Diagnosi", page_icon="🐹", layout="centered")
 
-# --- STILE CSS (Look Professionale & Aggressivo) ---
+# --- STILE CSS (Look Professionale & Aggressivo - Anti Dark Mode) ---
 st.markdown("""
     <style>
-    .main { background-color: #ffffff; }
-    .stButton>button { width: 100%; border-radius: 5px; height: 3.5em; font-weight: bold; text-transform: uppercase; }
-    .area-header { background-color: #000000; color: white; padding: 15px; text-align: center; font-weight: bold; border-radius: 5px; margin-bottom: 20px; letter-spacing: 2px; }
-    .lesson-box { background-color: #f8f9fa; color: #1a1a1a; padding: 25px; border-radius: 10px; border-left: 8px solid #ff4b4b; margin-top: 20px; font-style: italic; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); }
-    .profile-box { padding: 30px; border-radius: 15px; border: 2px solid #000; margin-top: 20px; }
-    .survival-kit { background-color: #fff3cd; padding: 20px; border-radius: 10px; border: 2px dashed #856404; margin-top: 20px; }
+    /* FORZA IL COLORE DEL TESTO E DELLO SFONDO PER EVITARE PROBLEMI CON DARK MODE */
+    html, body, [class*="css"], .stMarkdown, p, h1, h2, h3, h4, span, label {
+        color: #1a1a1a !important; /* Grigio quasi nero */
+    }
+    
+    .stApp {
+        background-color: #ffffff !important;
+    }
+
+    /* BOTTONI */
+    .stButton>button { 
+        width: 100%; 
+        border-radius: 5px; 
+        height: 3.5em; 
+        font-weight: bold; 
+        text-transform: uppercase; 
+        background-color: #f0f2f6 !important;
+        color: #1a1a1a !important;
+    }
+    
+    /* BOTTONE PRIMARIO (PROSSIMA DOMANDA) */
+    div.stButton > button:first-child[kind="primary"] {
+        background-color: #ff4b4b !important;
+        color: white !important;
+    }
+
+    /* AREA HEADER */
+    .area-header { 
+        background-color: #000000 !important; 
+        color: white !important; 
+        padding: 15px; 
+        text-align: center; 
+        font-weight: bold; 
+        border-radius: 5px; 
+        margin-bottom: 20px; 
+        letter-spacing: 2px; 
+    }
+
+    /* LEZIONE ESORCISTA */
+    .lesson-box { 
+        background-color: #f8f9fa !important; 
+        color: #1a1a1a !important; 
+        padding: 25px; 
+        border-radius: 10px; 
+        border-left: 8px solid #ff4b4b !important; 
+        margin-top: 20px; 
+        font-style: italic; 
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.1); 
+    }
+
+    /* PROFILI FINALI */
+    .profile-box { 
+        padding: 30px; 
+        border-radius: 15px; 
+        border: 2px solid #000 !important; 
+        margin-top: 20px; 
+        color: #1a1a1a !important;
+    }
+
+    /* KIT DI SOPRAVVIVENZA */
+    .survival-kit { 
+        background-color: #fff3cd !important; 
+        padding: 20px; 
+        border-radius: 10px; 
+        border: 2px dashed #856404 !important; 
+        margin-top: 20px; 
+        color: #856404 !important;
+    }
+    
+    /* CONTATTI */
+    .contact-box {
+        text-align: center; 
+        padding: 25px; 
+        background-color: #f1f1f1 !important; 
+        border-radius: 10px;
+        margin-top: 40px;
+    }
+    
+    .phone-link {
+        white-space: nowrap !important;
+        color: #ff4b4b !important;
+        text-decoration: none !important;
+        font-weight: bold !important;
+        font-size: 1.2em;
+    }
+
+    /* NASCONDE ELEMENTI DI SISTEMA */
+    header {visibility: hidden !important;}
+    footer {visibility: hidden !important;}
+    #MainMenu {visibility: hidden !important;}
+    .stAppDeployButton {display:none !important;}
     </style>
     """, unsafe_allow_html=True)
 
@@ -22,7 +107,7 @@ domande = [
     {"area": "SOLDI", "testo": "SAI ESATTAMENTE QUANTO HAI GUADAGNATO IERI?", "sotto": "(Non quanto hai incassato. Quanto ti è rimasto pulito).", "opzioni": [{"testo": "🔴 NO / GUARDO IL FATTURATO", "punti": 1}, {"testo": "🟢 SÌ, CONOSCO IL MARGINE", "punti": 0}], "lezione": "Il fatturato è vanità. Guidare guardando solo l'incasso è come guardare il tachimetro senza benzina: corri forte, ma ti fermerai all'improvviso."},
     {"area": "SOLDI", "testo": "QUANDO FAI UN PREZZO, VAI A 'SENTIMENTO'?", "sotto": "(O guardi i concorrenti e ti metti un po' sotto?)", "opzioni": [{"testo": "🔴 SÌ, VADO A OCCHIO", "punti": 1}, {"testo": "🟢 NO, HO UN CALCOLO MATEMATICO", "punti": 0}], "lezione": "Il 'prezzo di mercato' è una bugia. Se il tuo concorrente sta fallendo e tu lo copi, fallirai con lui. La matematica non ha sentimenti."},
     {"area": "SOLDI", "testo": "FAI SCONTI PER CHIUDERE LA VENDITA?", "sotto": "(Cedi per non perdere il cliente?)", "opzioni": [{"testo": "🔴 SÌ, SPESSO", "punti": 1}, {"testo": "🟢 MAI / SOLO IN CAMBIO DI ALTRO", "punti": 0}], "lezione": "Lo sconto è la droga dei poveri. Se togli il 10% dal prezzo, spesso togli il 50% dal tuo utile netto."},
-    {"area": "SOLDI", "testo": "SAI IL TUO 'PUNTO DI PAREGGIO' MENSILE?", "sotto": "(La cifra esatta per coprire tutte le spese).", "opzioni": [{"testo": "🔴 NON ESATTAMENTE", "punti": 1}, {"testo": "🟢 LO SO AL CENTESIMO", "punti": 0}], "lezione": "Sapere il Break-Even ti dà la calma di dire: 'Dal giorno 20 del mese in poi, tutto ciò che entra è guadagno'."},
+    {"area": "SOLDI", "testo": "SAI IL TUO 'PUNTO DI PAREGGIO' MENSILE?", "sotto": "(La cifra esatta per coprire tutte le spese).", "opzioni": [{"testo": "🔴 NON ESATTAMENTE", "punti": 1}, {"testo": "🟢 LO SO AL CENTESIMO", "punti": 0}], "lezione": "Sapere il Break-Even ti dà la calma di dire: 'Dal giorno 20 del mese in poi, tutto quello che entra è guadagno'."},
     {"area": "SOLDI", "testo": "SE I CLIENTI NON PAGANO OGGI, QUANTO SOPRAVVIVI?", "sotto": "(Il test della cassa).", "opzioni": [{"testo": "🔴 MENO DI UN MESE", "punti": 1}, {"testo": "🟢 ALMENO 3 MESI", "punti": 0}], "lezione": "Le aziende falliscono perché finiscono la cassa, non gli utili. Devi costruire la riserva di guerra."},
     
     # AREA 2: TEMPO
@@ -36,7 +121,7 @@ domande = [
     {"area": "SQUADRA", "testo": "TEST AUTOBUS: SE SPARISCI UN MESE...", "sotto": "(L'azienda continua o si ferma?)", "opzioni": [{"testo": "🔴 SI FERMA / CROLLA", "punti": 1}, {"testo": "🟢 VA AVANTI", "punti": 0}], "lezione": "Se l'azienda sei tu, hai un lavoro a vita da cui non puoi dimetterti. L'obiettivo è rendersi inutili operativamente."},
     {"area": "SQUADRA", "testo": "HAI PROCEDURE SCRITTE PER I COMPITI?", "sotto": "(Manuali su come si fanno le cose)", "opzioni": [{"testo": "🔴 NO, È NELLA TESTA", "punti": 1}, {"testo": "🟢 SÌ, ABBIAMO I MANUALI", "punti": 0}], "lezione": "L'oralità è il medioevo. Se devi spiegare una cosa due volte, hai fallito. Scrivila o fai un video."},
     {"area": "SQUADRA", "testo": "TI SENTI DIRE 'FACCIO PRIMA A FARLO IO'?", "sotto": "(E alla fine lo fai tu)", "opzioni": [{"testo": "🔴 QUASI OGNI GIORNO", "punti": 1}, {"testo": "🟢 RARAMENTE", "punti": 0}], "lezione": "Questa frase è la lapide della tua crescita. Rubando tempo alla strategia, impedisci ai dipendenti di imparare."},
-    {"area": "SQUADRA", "testo": "I DIPENDENTI SANNO L'OBIETTIVO DEL MESE?", "sotto": "(O sanno solo il loro compitino?)", "opzioni": [{"testo": "🔴 NON CREDO", "punti": 1}, {"testo": "🟢 SÌ, CONDIVIDIAMO I NUMERI", "punti": 0}], "lezione": "Non puoi chiedere di vincere la partita se non dici qual è il punteggio. Condividere crea alleati, nascondere crea mercenari."},
+    {"area": "SQUADRA", "testo": "I DIPENDENTI SANNO L'OBIETTIVO DEL MESE?", "sotto": "(O sanno solo il loro compitino?)", "opzioni": [{"testo": "🔴 NON CREDO", "punti": 1}, {"testo": "🟢 SÌ, CONDIVIDIAMO I NUMERI", "punti": 0}], "lezione": "Non puoi chiedere di vincere la partita se non dici qual è il punteggio. Condividere gli obiettivi crea alleati, nascondere crea mercenari."},
     {"area": "SQUADRA", "testo": "ERRORE: CERCHI IL COLPEVOLE O LA CAUSA?", "sotto": "(Onestamente)", "opzioni": [{"testo": "🔴 CHI HA SBAGLIATO?", "punti": 1}, {"testo": "🟢 DOVE HA SBAGLIATO IL PROCESSO?", "punti": 0}], "lezione": "Le persone sbagliano se il processo è confuso. Sgridare è inutile, aggiustare la procedura è definitivo."},
 
     # AREA 4: STRATEGIA
@@ -54,7 +139,7 @@ if 'area_scores' not in st.session_state: st.session_state.area_scores = {"SOLDI
 if 'show_lesson' not in st.session_state: st.session_state.show_lesson = False
 
 # --- HEADER ---
-st.image("https://www.comunicattivamente.it/wp-content/uploads/2023/logo-comunicattivamente.png", width=200)
+st.image("https://www.comunicattivamente.it/wp-content/uploads/2023/logo-comunicattivamente.png", width=180)
 st.title("🐹 ANSIA S.P.A.")
 
 # --- LOGICA TEST ---
@@ -77,14 +162,14 @@ if st.session_state.step < len(domande):
     else:
         st.markdown(f"<div class='lesson-box'><b>LA LEZIONE DELL'ESORCISTA:</b><br><br>{item['lezione']}</div>", unsafe_allow_html=True)
         btn_label = "VEDI LA TUA DIAGNOSI 📊" if st.session_state.step == len(domande)-1 else "PROSSIMA DOMANDA ➡️"
-        if st.button(btn_label):
+        if st.button(btn_label, type="primary"):
             st.session_state.step += 1
             st.session_state.show_lesson = False
             st.rerun()
 
 else:
     # --- RISULTATI FINALI ---
-    with st.spinner("L'Esorcista sta elaborando la tua prognosi..."): time.sleep(1.5)
+    with st.spinner("L'Esorcista sta elaborando..."): time.sleep(1.5)
     
     score = st.session_state.total_score
     st.header("📊 LA TUA DIAGNOSI FINALE")
@@ -101,17 +186,15 @@ else:
     if score > 4:
         st.write("")
         st.markdown("### 🚑 KIT DI SOPRAVVIVENZA DELL'ESORCISTA")
-        st.write("Ecco 3 azioni pratiche per smettere di correre a vuoto:")
         
         advice = []
-        # Logica: diamo consigli sulle aree dove ha fatto più errori
         sorted_areas = sorted(st.session_state.area_scores.items(), key=lambda x: x[1], reverse=True)
         
         for area, s in sorted_areas[:3]:
-            if area == "SOLDI": advice.append("💰 **SOLDI:** Domani chiedi al commercialista il tuo margine reale invece di guardare solo il fatturato.")
-            if area == "TEMPO": advice.append("⏰ **TEMPO:** Blocca due slot da 30 min per le email e ignora le notifiche per il resto del giorno.")
-            if area == "SQUADRA": advice.append("👥 **SQUADRA:** Scegli un compito che spieghi sempre a voce e registra un video mentre lo fai. Ecco la tua prima procedura.")
-            if area == "STRATEGIA": advice.append("🎯 **STRATEGIA:** Guarda quale cliente ti fa perdere più tempo e preparati a dirgli di 'No'.")
+            if area == "SOLDI" and s > 0: advice.append("💰 **SOLDI:** Domani chiedi al commercialista il tuo margine reale invece di guardare solo il fatturato.")
+            if area == "TEMPO" and s > 0: advice.append("⏰ **TEMPO:** Blocca due slot da 30 min per le email e ignora le notifiche per il resto del giorno.")
+            if area == "SQUADRA" and s > 0: advice.append("👥 **SQUADRA:** Scegli un compito che spieghi sempre a voce e registra un video mentre lo fai. Ecco la tua prima procedura.")
+            if area == "STRATEGIA" and s > 0: advice.append("🎯 **STRATEGIA:** Guarda quale cliente ti fa perdere più tempo e preparati a dirgli di 'No'.")
         
         for a in advice: st.info(a)
 
@@ -123,9 +206,15 @@ else:
     c1.link_button("📘 SCARICA L'EBOOK COMPLETO", "https://yourlink.com", type="primary")
     c2.link_button("📅 PRENOTA CONSULENZA", "mailto:daniele@comunicattivamente.it")
 
-    st.write("")
-    st.write("")
-    st.markdown("<div style='text-align: center; padding: 20px; background-color: #f1f1f1; border-radius: 10px;'><b>Daniele Salvatori</b><br>📧 daniele@comunicattivamente.it | 📞 +39 392 933 4563</div>", unsafe_allow_html=True)
+    # CONTATTI CON NUMERO CLICCABILE E PROTEZIONE DARK MODE
+    st.markdown("""
+        <div class="contact-box">
+            <b style="font-size: 1.1em;">Daniele Salvatori</b><br>
+            <span style="color:#666;">Consulenza Organizzativa</span><br><br>
+            📧 <a href="mailto:daniele@comunicattivamente.it" style="color: #ff4b4b !important;">daniele@comunicattivamente.it</a><br>
+            📞 <a href="tel:+393929334563" class="phone-link">+39 392 933 4563</a>
+        </div>
+    """, unsafe_allow_html=True)
     
     st.write("")
     st.write("---")
