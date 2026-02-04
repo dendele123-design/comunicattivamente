@@ -203,7 +203,7 @@ else:
     st.write("Il Caos guarisce solo con l'azione. Non restare solo con il tuo punteggio.")
     
     c1, c2 = st.columns(2)
-    c1.link_button("📘 SCARICA L'EBOOK COMPLETO", "https://yourlink.com", type="primary")
+    c1.link_button("📘 SCARICA L'EBOOK COMPLETO", "https://www.comunicattivamente.it/wp-content/uploads/2026/01/ansia-spa-comunicattivamente-daniele-salvatori.pdf", type="primary")
     c2.link_button("📅 PRENOTA CONSULENZA", "mailto:daniele@comunicattivamente.it")
 
     # CONTATTI CON NUMERO CLICCABILE E PROTEZIONE DARK MODE
