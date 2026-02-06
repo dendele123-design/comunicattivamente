@@ -22,7 +22,25 @@ st.markdown(f"""
     .stAppDeployButton {{display:none !important;}}
     [data-testid="stHeader"] {{display:none !important;}}
 
-    /* AREA HEADER */
+    /* LOGO TESTUALE PERSONALIZZATO */
+    .brand-logo {{
+        text-align: center;
+        color: {ROSSO_BRAND} !important;
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        margin-bottom: 0px;
+    }}
+    .brand-sub {{
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        color: #666 !important;
+        margin-top: -10px;
+        margin-bottom: 30px;
+    }}
+
+    /* AREA HEADER DOMANDA */
     .area-header {{ 
         background-color: #000000 !important; 
         color: white !important; 
@@ -101,7 +119,7 @@ domande = [
     {"area": "STRATEGIA", "testo": "PRENDI DECISIONI SUI DATI O SULL'INTUITO?", "sotto": "(Cosa spingere, chi tagliare, dove investire?)", "opzioni": [{"testo": "🔴 INTUITO / PANCIA", "punti": 1}, {"testo": "🟢 DATI / REPORT", "punti": 0}], "lezione": "L'intuito è spesso un pregiudizio mascherato. I dati sono freddi e veritieri. Fidati di Excel, non delle sensazioni del mattino."},
     {"area": "STRATEGIA", "testo": "HAI IL CORAGGIO DI DIRE 'NO' A UN CLIENTE?", "sotto": "(Se è tossico, rompiscatole o fuori target)", "opzioni": [{"testo": "🔴 NO, FATTURATO È FATTURATO", "punti": 1}, {"testo": "🟢 SÌ, HO LICENZIATO CLIENTI", "punti": 0}], "lezione": "Non tutti i soldi sono uguali. I soldi di un cliente tossico costano il triplo in stress e tempo. Licenziarli è il modo più veloce per aumentare gli utili."},
     {"area": "STRATEGIA", "testo": "CONOSCI IL TUO BEST SELLER PER MARGINE?", "sotto": "(Quello che ti arricchisce davvero, non quello che vendi di più)", "opzioni": [{"testo": "🔴 NON SONO SICURO", "punti": 1}, {"testo": "🟢 SÌ, LO CONOSCO", "punti": 0}], "lezione": "Spesso vendiamo tantissimo prodotti che lasciano briciole e trascuriamo quelli d'oro. Se non sai cosa ti arricchisce, lavorerai tanto per poco."},
-    {"area": "STRATEGIA", "testo": "SAI QUANTO TI COSTA ACQUISIRE UN CLIENTE?", "sotto": "(Marketing, tempo commerciale, adv...)", "opzioni": [{"testo": "🔴 IMPOSSIBILE SAPERLO", "punti": 1}, {"testo": "🟢 SÌ, IL CAC È CHIARO", "punti": 0}], "lezione": "Se spendi 100€ per acquisire un cliente che te ne porta 50€ di margine, stai pagando per lavorare. La matematica del marketing deve tornare."},
+    {"area": "STRATEGIA", "testo": "SAI QUANTO COSTA ACQUISIRE UN CLIENTE?", "sotto": "(Marketing, tempo commerciale, adv...)", "opzioni": [{"testo": "🔴 IMPOSSIBILE SAPERLO", "punti": 1}, {"testo": "🟢 SÌ, IL CAC È CHIARO", "punti": 0}], "lezione": "Se spendi 100€ per acquisire un cliente che te ne porta 50€ di margine, stai pagando per lavorare. La matematica del marketing deve tornare."},
     {"area": "STRATEGIA", "testo": "HAI UN PIANO SCRITTO PER I PROSSIMI 12 MESI?", "sotto": "(Non un sogno, un piano concreto con date e nomi)", "opzioni": [{"testo": "🔴 È NELLA MIA TESTA", "punti": 1}, {"testo": "🟢 SÌ, SCRITTO E CONDIVISO", "punti": 0}], "lezione": "Se è nella testa, è un'allucinazione. Se è scritto, è un progetto. Le aziende si costruiscono sui progetti, non sulle speranze."}
 ]
 
@@ -113,13 +131,17 @@ if 'total_score' not in st.session_state: st.session_state.total_score = 0
 if 'area_scores' not in st.session_state: st.session_state.area_scores = {"SOLDI": 0, "TEMPO": 0, "SQUADRA": 0, "STRATEGIA": 0}
 if 'show_lesson' not in st.session_state: st.session_state.show_lesson = False
 
-# --- HEADER FISSO ---
-st.image("https://www.comunicattivamente.it/wp-content/uploads/2023/logo-comunicattivamente.png", width=180)
+# =================================================================
+# 4. INTERFACCIA - LOGO TESTUALE (Sostituisce l'immagine)
+# =================================================================
+st.markdown('<div class="brand-logo">comunicAttivamente</div>', unsafe_allow_html=True)
+st.markdown('<div class="brand-sub">Esorcismo del Caos Aziendale</div>', unsafe_allow_html=True)
+
 st.title("🐹 ANSIA S.P.A.")
 st.subheader("Diagnosi per Titolari Criceti")
 
 # =================================================================
-# 4. IL TEST INTERATTIVO
+# 5. IL TEST INTERATTIVO
 # =================================================================
 if st.session_state.step < len(domande):
     item = domande[st.session_state.step]
@@ -143,7 +165,6 @@ if st.session_state.step < len(domande):
     else:
         st.markdown(f"<div class='lesson-box'><b>LA LEZIONE DELL'ESORCISTA:</b><br><br>{item['lezione']}</div>", unsafe_allow_html=True)
         st.write("")
-        # Tasto dinamico all'ultima domanda
         testo_btn = "VEDI LA TUA DIAGNOSI 📊" if st.session_state.step == len(domande)-1 else "PROSSIMA DOMANDA ➡️"
         if st.button(testo_btn, type="primary"):
             st.session_state.step += 1
@@ -152,7 +173,7 @@ if st.session_state.step < len(domande):
 
 else:
     # =================================================================
-    # 5. RISULTATI FINALI E KIT DI SOPRAVVIVENZA
+    # 6. RISULTATI FINALI E KIT DI SOPRAVVIVENZA
     # =================================================================
     with st.spinner("L'Esorcista sta calcolando il tuo livello di ansia..."): 
         time.sleep(1.5)
@@ -176,14 +197,14 @@ else:
         st.markdown(f"### 🚑 KIT DI SOPRAVVIVENZA DELL'ESORCISTA")
         st.write("In base alle tue risposte, ecco le 3 priorità su cui lavorare domani mattina:")
         
-        # Ordiniamo le aree dove l'utente ha fatto più errori
         aree_critiche = sorted(st.session_state.area_scores.items(), key=lambda x: x[1], reverse=True)
         
         for area, punti in aree_critiche[:3]:
-            if area == "SOLDI": st.info("💰 **SOLDI:** Smetti di guardare l'incasso. Domani mattina chiedi al tuo commercialista il MARGINE reale su ogni prodotto.")
-            if area == "TEMPO": st.info("⏰ **TEMPO:** Disattiva le notifiche. Blocca due slot da 30 min per le mail e il resto del tempo lavora sulla strategia.")
-            if area == "SQUADRA": st.info("👥 **SQUADRA:** Scegli un compito ripetitivo e registra un video mentre lo fai. Ecco la tua prima video-procedura.")
-            if area == "STRATEGIA": st.info("🎯 **STRATEGIA:** Analizza il tuo database. Trova il cliente più tossico e preparati a dirgli di 'No'.")
+            if punti > 0:
+                if area == "SOLDI": st.info("💰 **SOLDI:** Smetti di guardare l'incasso. Domani mattina chiedi al tuo commercialista il MARGINE reale su ogni prodotto.")
+                if area == "TEMPO": st.info("⏰ **TEMPO:** Disattiva le notifiche. Blocca due slot da 30 min per le mail e il resto del tempo lavora sulla strategia.")
+                if area == "SQUADRA": st.info("👥 **SQUADRA:** Scegli un compito ripetitivo e registra un video mentre lo fai. Ecco la tua prima video-procedura.")
+                if area == "STRATEGIA": st.info("🎯 **STRATEGIA:** Analizza il tuo database. Trova il cliente più tossico e preparati a dirgli di 'No'.")
 
     st.divider()
     st.subheader("LA PROGNOSI NON È IL DESTINO")
