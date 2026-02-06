@@ -18,24 +18,24 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- DATABASE DOMANDE ANSIA SPA (Prime 10) ---
-domande_ansia = [
-    {"testo": "SAI ESATTAMENTE QUANTO HAI GUADAGNATO IERI?", "sotto": "Non l'incasso. Il margine pulito.", "feedback": "Il fatturato è vanità. Se non conosci il margine, voli alla cieca."},
-    {"testo": "VAI A 'SENTIMENTO' QUANDO FAI UN PREZZO?", "sotto": "O hai un calcolo matematico basato sui costi?", "feedback": "Il prezzo di mercato è un'illusione. La matematica non ha sentimenti."},
-    {"testo": "LE TUE RIUNIONI HANNO SEMPRE UN ORDINE SCRITTO?", "sotto": "Tutti sanno cosa si decide o lo scoprite lì?", "feedback": "Senza agenda, la riunione è un furto di tempo autorizzato."},
-    {"testo": "SE SPARISCI PER 30 GIORNI, L'AZIENDA CONTINUA?", "sotto": "L'azienda produce utile o si ferma tutto?", "feedback": "Se dipendono da te, hai un lavoro, non un business."},
-    {"testo": "TI FIDI PIÙ DEI DATI O DEL TUO INTUITO?", "sotto": "Guardi i report o segui la sensazione?", "feedback": "L'intuito è un pregiudizio. I dati sono la sanità mentale."},
-    {"testo": "LICENZI MAI I CLIENTI TOSSICI?", "sotto": "O accetti chiunque pur di fatturare?", "feedback": "I vampiri rubano anima e tempo. Toglierli è igiene."},
-    {"testo": "USI LE MAIL PER CHIEDERE DISPONIBILITÀ?", "sotto": "O hai un calendario condiviso?", "feedback": "Il ping-pong di mail è uno spreco di vita."},
-    {"testo": "OGNI PROCESSO È REGISTRATO IN VIDEO?", "sotto": "O spieghi le cose a voce ogni volta?", "feedback": "Se non è scritto, non esiste. La procedura è libertà."},
-    {"testo": "CONOSCI IL TUO 'PUNTO DI PAREGGIO' MENSILE?", "sotto": "La cifra esatta per coprire ogni costo?", "feedback": "Sapere quando inizi a guadagnare dà calma."},
-    {"testo": "SAI QUANTO TI COSTA ACQUISIRE UN CLIENTE?", "sotto": "Marketing, tempo, chiamate... sai la cifra?", "feedback": "Se non sai quanto costa vendere, paghi per lavorare."}
-]
-
 # --- STATO SESSIONE ---
 if 'step_ansia' not in st.session_state: st.session_state.step_ansia = 0
 if 'score_ansia' not in st.session_state: st.session_state.score_ansia = 0
 if 'ansia_complete' not in st.session_state: st.session_state.ansia_complete = False
+
+# --- DATABASE DOMANDE ANSIA SPA (Strategia) ---
+domande_ansia = [
+    {"testo": "SAI ESATTAMENTE QUANTO HAI GUADAGNATO IERI?", "sotto": "Margine pulito, non incasso.", "feedback": "Voli alla cieca senza margine."},
+    {"testo": "PREZZI A 'SENTIMENTO'?", "sotto": "O con calcolo matematico dei costi?", "feedback": "La matematica non ha sentimenti."},
+    {"testo": "RIUNIONI SENZA AGENDA?", "sotto": "Tutti sanno cosa si decide?", "feedback": "Furto di tempo autorizzato."},
+    {"testo": "SE SPARISCI 30 GG, L'AZIENDA VA?", "sotto": "Produce utile senza di te?", "feedback": "Sei uno schiavo, non un boss."},
+    {"testo": "DATI O INTUITO?", "sotto": "Report o sensazioni?", "feedback": "I dati sono sanità mentale."},
+    {"testo": "LICENZI I CLIENTI VAMPIRI?", "sotto": "O accetti chiunque?", "feedback": "I vampiri rubano la vita."},
+    {"testo": "MAIL PER LA DISPONIBILITÀ?", "sotto": "O calendario condiviso?", "feedback": "Spreco di vita in mail."},
+    {"testo": "VIDEO-PROCEDURE?", "sotto": "O spieghi tutto a voce?", "feedback": "Se non è registrato, non esiste."},
+    {"testo": "PUNTO DI PAREGGIO?", "sotto": "Sai quando inizi a guadagnare?", "feedback": "Essenziale per la calma."},
+    {"testo": "COSTO ACQUISIZIONE CLIENTE?", "sotto": "Quanto spendi per vendere?", "feedback": "Evita di pagare per lavorare."}
+]
 
 # --- UI APPLICAZIONE ---
 st.write("# 🛡️")
@@ -44,8 +44,8 @@ menu = st.selectbox("COSA VUOI FARE OGGI?", ["🏠 Home Page", "📊 Diagnosi St
 st.divider()
 
 if menu == "🏠 Home Page":
-    st.subheader("Benvenuto a bordo, Ammiraglio.")
-    st.markdown("<div class='info-box'>Hai in mano il timone della tua azienda. Usa gli strumenti per eliminare il rumore e iniziare a navigare verso il margine.</div>", unsafe_allow_html=True)
+    st.subheader("A rapporto, Ammiraglio.")
+    st.markdown("<div class='info-box'>Questa è la tua centrale di comando. Smetti di spalare letame nella stalla e sali sul ponte.</div>", unsafe_allow_html=True)
     st.write("📈 **Strategia:** Ansia SPA.")
     st.write("⚙️ **Operatività:** La Riunione poteva essere una Mail.")
 
@@ -54,27 +54,27 @@ elif menu == "📊 Diagnosi Strategica (Ansia SPA)":
         step = st.session_state.step_ansia
         if step < len(domande_ansia):
             item = domande_ansia[step]
-            st.markdown(f"<div class='area-header'>QUESITO {step + 1} di {len(domande_ansia)}</div>", unsafe_allow_html=True)
+            st.write(f"**QUESITO {step + 1} di {len(domande_ansia)}**")
             st.header(item['testo'])
             st.write(f"*{item['sotto']}*")
             st.divider()
             c1, c2 = st.columns(2)
-            if c1.button("🔴 NO / NON SEMPRE", key=f"no_{step}"):
+            if c1.button("🔴 NO", key=f"no_{step}"):
                 st.session_state.score_ansia += 1
                 st.session_state.step_ansia += 1
                 st.rerun()
-            if c2.button("🟢 SÌ, ASSOLUTAMENTE", key=f"si_{step}"):
+            if c2.button("🟢 SÌ", key=f"si_{step}"):
                 st.session_state.step_ansia += 1
                 st.rerun()
         else:
             st.session_state.ansia_complete = True
             st.rerun()
     else:
-        st.subheader("LA TUA DIAGNOSI")
+        st.subheader("DIAGNOSI")
         score = st.session_state.score_ansia
-        if score <= 2: st.success("PROFILO: GAZZELLA. Ottimo!")
-        elif score <= 6: st.warning("PROFILO: CRICETO. Attenzione.")
-        else: st.error("PROFILO: POSSEDUTO. Esorcismo urgente.")
+        if score <= 2: st.success("GAZZELLE: Strategia solida.")
+        elif score <= 6: st.warning("CRICETO: La ruota cigola.")
+        else: st.error("POSSEDUTO: Esorcismo urgente.")
         if st.button("REIMPOSTA TEST", type="primary"):
             st.session_state.step_ansia = 0
             st.session_state.score_ansia = 0
@@ -82,44 +82,35 @@ elif menu == "📊 Diagnosi Strategica (Ansia SPA)":
             st.rerun()
 
 elif menu == "🛠️ Pronto Intervento (Toolkit)":
-    st.subheader("Kit di Sopravvivenza Digitale")
-    tool = st.radio("Seleziona:", ["💸 Calcola lo Spreco", "📅 Invito Intelligente", "📡 Filtro Urgenza", "📑 Generatore di Procedure (SOP)"])
+    tool = st.radio("Seleziona strumento:", ["💸 Calcola Spreco", "📅 Invito Intelligente", "📡 Filtro Urgenza", "📑 Generatore SOP", "🧭 Cruscotto Ammiraglio"])
     st.divider()
 
-    if tool == "💸 Calcola lo Spreco":
-        n = st.number_input("Partecipanti", min_value=1, value=4)
-        h = st.slider("Durata (ore)", 0.5, 4.0, 1.0, 0.5)
-        c = st.number_input("Costo orario medio (€)", min_value=1, value=45)
+    if tool == "💸 Calcola Spreco":
+        n = st.number_input("Partecipanti", 1, 20, 4)
+        h = st.slider("Durata", 0.5, 4.0, 1.0)
+        c = st.number_input("Costo orario medio", 1, 200, 45)
         st.error(f"VALORE BRUCIATO: {n * c * h} €")
 
     elif tool == "📅 Invito Intelligente":
-        tipo = st.selectbox("Tipo:", ["Chiamata", "Meeting", "Strategia"])
         link = st.text_input("Link Agenda:", "https://calendly.com/tuonome")
         if st.button("GENERA INVITO", type="primary"):
-            st.code(f"Ciao, per fissare la nostra {tipo.lower()} ti lascio il link alla mia agenda: {link}. Scegli lo slot!", language="text")
+            st.code(f"Scegli qui lo slot per il nostro incontro: {link}", language="text")
 
-    elif tool == "📡 Filtro Urgenza":
-        msg = st.selectbox("Situazione:", ["Report/Doc", "Domanda Sì/No", "Urgenza reale", "Pianificazione"])
-        if st.button("STRUMENTO DA USARE", type="primary"):
-            if "Report" in msg or "Pianificazione" in msg: st.success("MAIL (Asincrona)")
-            elif "Sì/No" in msg: st.warning("CHAT (Sincrona rapida)")
-            else: st.error("VOCE (Risoluzione immediata)")
-
-    elif tool == "📑 Generatore di Procedure (SOP)":
-        st.write("Crea la struttura per la tua prossima procedura:")
-        titolo = st.text_input("Cosa stiamo clonando?", "Esempio: Inserimento Fattura")
-        ingr = st.text_area("Ingredienti (Cosa serve?)", "Password gestionale, PDF fattura...")
-        passaggi = st.text_area("Preparazione (Passaggi numerati)", "1. Apri sito...\n2. Inserisci...")
-        if st.button("GENERA SCHEMA PROCEDURA", type="primary"):
-            sop = f"--- PROCEDURA: {titolo.upper()} ---\n\nINGREDIENTI:\n{ingr}\n\nPASSAGGI:\n{passaggi}\n\n[Nota: Se puoi, registra un video di 2 min mentre lo fai!]"
-            st.code(sop, language="text")
+    elif tool == "🧭 Cruscotto Ammiraglio":
+        st.write("Proiezione a 30 giorni:")
+        saldo = st.number_input("Saldo attuale banca (€)", value=10000)
+        incassi = st.number_input("Incassi certi entro 30gg (€)", value=5000)
+        spese = st.number_input("Spese/F24/Stipendi entro 30gg (€)", value=7000)
+        proiezione = saldo + incassi - spese
+        if proiezione > 0: st.success(f"PROIEZIONE: {proiezione} € (Rotta sicura)")
+        else: st.error(f"PROIEZIONE: {proiezione} € (Rischio secca!)")
 
 elif menu == "📖 Pillole di Efficienza (Bignami)":
-    st.subheader("I Comandamenti dell'Efficienza")
-    with st.expander("🛡️ PROTOCOLLO 4: CLONAZIONE UMANA"):
-        st.write("Smetti di spiegare a voce. Registra un video mentre lavori (Loom) e salvalo nella cartella PROCEDURE. Se non è registrato, non esiste.")
-    with st.expander("📡 PROTOCOLLO 3: RUMORE VS SEGNALE"):
-        st.write("La mail è la tua fortezza. La chat è l'estintore. Spegni le notifiche o sarai schiavo del Ding.")
+    st.subheader("Protocolli Finali")
+    with st.expander("🧭 PROTOCOLLO 5: IL CRUSCOTTO"):
+        st.write("Guarda i flussi di cassa, non le tasse. Il saldo proiettato a 30 giorni è la tua bussola.")
+    with st.expander("📑 PROTOCOLLO 4: CLONAZIONE"):
+        st.write("Registra video mentre lavori. Crea procedure per renderti inutile operativamente.")
 
 st.markdown("---")
 st.write("Daniele Salvatori | daniele@comunicattivamente.it")
