@@ -4,7 +4,7 @@ import time
 # =================================================================
 # 1. CONFIGURAZIONE E DESIGN (Ansia S.p.A. Identity)
 # =================================================================
-st.set_page_config(page_title="Ansia S.p.A. - Diagnosi", page_icon="🐹", layout="centered")
+st.set_page_config(page_title="Ansia S.p.A. - Diagnosi", page_icon="🎯", layout="centered")
 
 ROSSO_BRAND = "#DC0612"
 
