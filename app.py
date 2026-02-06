@@ -7,7 +7,7 @@ from datetime import datetime
 # =================================================================
 # 1. CONFIGURAZIONE E DESIGN (#DC0612)
 # =================================================================
-st.set_page_config(page_title="Comunicattivamente Hub", page_icon="🛡️", layout="centered")
+st.set_page_config(page_title="Ansia S.p.A. Hub", page_icon="🛡️", layout="centered")
 
 ROSSO_BRAND = "#DC0612"
 
@@ -48,14 +48,29 @@ st.markdown(f"""
     """, unsafe_allow_html=True)
 
 # =================================================================
-# 2. DATABASE DOMANDE (20 QUESITI - Come richiesto)
+# 2. DATABASE DOMANDE (20 QUESITI COMPLETI)
 # =================================================================
 domande_ansia = [
-    {"area": "SOLDI", "testo": "SAI QUANTO HAI GUADAGNATO IERI?", "sotto": "Margine pulito, non incasso.", "lezione": "Il fatturato è vanità. Senza margine sei un volontario, non un imprenditore.", "opzioni": [{"t": "🔴 NO / SOLO FATTURATO", "p": 1}, {"t": "🟢 SÌ, CONOSCO IL MARGINE", "p": 0}]},
+    {"area": "SOLDI", "testo": "SAI ESATTAMENTE QUANTO HAI GUADAGNATO IERI?", "sotto": "Margine pulito, non incasso.", "lezione": "Il fatturato è vanità. Senza margine sei un volontario, non un imprenditore.", "opzioni": [{"t": "🔴 NO / SOLO FATTURATO", "p": 1}, {"t": "🟢 SÌ, CONOSCO IL MARGINE", "p": 0}]},
     {"area": "SOLDI", "testo": "VAI A 'SENTIMENTO' CON I PREZZI?", "sotto": "O hai un calcolo matematico dei costi?", "lezione": "Il prezzo deve coprire i TUOI costi e il TUO margine. La matematica non ha sentimenti.", "opzioni": [{"t": "🔴 SÌ, VADO A OCCHIO", "p": 1}, {"t": "🟢 NO, HO IL CALCOLO DEI COSTI", "p": 0}]},
-    {"area": "TEMPO", "testo": "LE TUE RIUNIONI HANNO UN ORDINE SCRITTO?", "sotto": "Tutti sanno di cosa si parla o lo scoprite lì?", "lezione": "Una riunione senza agenda è un furto di tempo autorizzato. Non decidere nulla costa caro.", "opzioni": [{"t": "🔴 NO, PARLIAMO E BASTA", "p": 1}, {"t": "🟢 SÌ, SEMPRE", "p": 0}]},
-    {"area": "SQUADRA", "testo": "SE SPARISCI 30 GG, L'AZIENDA VA?", "sotto": "Produce utile senza la tua presenza fisica?", "lezione": "Se l'azienda sei tu, hai un lavoro faticoso, non un'azienda.", "opzioni": [{"t": "🔴 SI FERMA TUTTO", "p": 1}, {"t": "🟢 VA AVANTI", "p": 0}]}
-    # ... (Per brevità qui ho accorciato, ma puoi reinserire le 20 domande complete nello stesso formato)
+    {"area": "SOLDI", "testo": "FAI SCONTI PER CHIUDERE LA VENDITA?", "sotto": "Cedi per non perdere il cliente?", "lezione": "Lo sconto è la droga dei poveri. Spesso togli il 50% dal tuo utile netto.", "opzioni": [{"t": "🔴 SÌ, SPESSO", "p": 1}, {"t": "🟢 MAI / SOLO IN CAMBIO DI ALTRO", "p": 0}]},
+    {"area": "SOLDI", "testo": "SAI IL TUO PUNTO DI PAREGGIO MENSILE?", "sotto": "La cifra esatta per coprire ogni spesa.", "lezione": "Se non sai quanto ti costa la serranda alzata, vivi nell'ansia.", "opzioni": [{"t": "🔴 NON ESATTAMENTE", "p": 1}, {"t": "🟢 LO SO AL CENTESIMO", "p": 0}]},
+    {"area": "SOLDI", "testo": "SE I CLIENTI NON PAGANO OGGI, QUANTO SOPRAVVIVI?", "sotto": "Quanti mesi di ossigeno (cassa) hai?", "lezione": "Le aziende falliscono perché finiscono la cassa. Costruisci la riserva di guerra.", "opzioni": [{"t": "🔴 MENO DI UN MESE", "p": 1}, {"t": "🟢 ALMENO 3 MESI", "p": 0}]},
+    {"area": "TEMPO", "testo": "LE TUE RIUNIONI HANNO UN ORDINE SCRITTO?", "sotto": "Tutti sanno cosa si decide prima di entrare?", "lezione": "Una riunione senza agenda è beneficenza oraria ai dipendenti.", "opzioni": [{"t": "🔴 NO, PARLIAMO E BASTA", "p": 1}, {"t": "🟢 SÌ, SEMPRE", "p": 0}]},
+    {"area": "TEMPO", "testo": "SEI TU A DECIDERE QUANDO LEGGERE LE MAIL?", "sotto": "O è il 'Ding' del telefono a decidere per te?", "lezione": "La reattività non è efficienza. Se rispondi a tutto subito, sei un citofono.", "opzioni": [{"t": "🔴 APPENA ARRIVANO", "p": 1}, {"t": "🟢 A BLOCCHI ORARI FISSI", "p": 0}]},
+    {"area": "TEMPO", "testo": "QUANTO TEMPO PERDI A CERCARE I FILE?", "sotto": "Preventivi, loghi, fatture...", "lezione": "Il caos digitale mangia settimane di stipendio all'anno a ogni dipendente.", "opzioni": [{"t": "🔴 TANTO / DIPENDE", "p": 1}, {"t": "🟢 ZERO, SO DOVE SONO", "p": 0}]},
+    {"area": "TEMPO", "testo": "QUANDO UN CLIENTE CHIAMA, INTERROMPI TUTTO?", "sotto": "O hai un filtro/segretaria?", "lezione": "Essere sempre disponibili ti fa sembrare servile, non professionale.", "opzioni": [{"t": "🔴 RISPONDO SEMPRE", "p": 1}, {"t": "🟢 HO FILTRI E ORARI", "p": 0}]},
+    {"area": "TEMPO", "testo": "USI UN CALENDARIO CONDIVISO CON IL TEAM?", "sotto": "O ti chiedono 'Sei libero martedì'?", "lezione": "Chiedere la disponibilità a voce genera un ping-pong inutile.", "opzioni": [{"t": "🔴 NO / WHATSAPP", "p": 1}, {"t": "🟢 SÌ, GOOGLE CALENDAR", "p": 0}]},
+    {"area": "SQUADRA", "testo": "TEST AUTOBUS: SE SPARISCI UN MESE?", "sotto": "L'azienda produce utile senza di te?", "lezione": "Se l'azienda sei tu, hai un lavoro a vita da cui non puoi dimetterti.", "opzioni": [{"t": "🔴 SI FERMA / CROLLA", "p": 1}, {"t": "🟢 VA AVANTI", "p": 0}]},
+    {"area": "SQUADRA", "testo": "HAI PROCEDURE SCRITTE PER I COMPITI?", "sotto": "Manuali operativi su come si fanno le cose.", "lezione": "L'oralità è il medioevo. Se spieghi due volte la stessa cosa, hai fallito.", "opzioni": [{"t": "🔴 NO, È NELLA TESTA", "p": 1}, {"t": "🟢 SÌ, ABBIAMO I MANUALI", "p": 0}]},
+    {"area": "SQUADRA", "testo": "TI SENTI DIRE 'FACCIO PRIMA A FARLO IO'?", "sotto": "E alla fine lo fai tu.", "lezione": "Questa frase è la lapide della tua crescita aziendale.", "opzioni": [{"t": "🔴 QUASI OGNI GIORNO", "p": 1}, {"t": "🟢 RARAMENTE", "p": 0}]},
+    {"area": "SQUADRA", "testo": "I DIPENDENTI SANNO L'OBIETTIVO DEL MESE?", "sotto": "O vengono solo a timbrare il cartellino?", "lezione": "Non puoi vincere se la squadra non sa il punteggio. Crea alleati, non mercenari.", "opzioni": [{"t": "🔴 NON CREDO", "p": 1}, {"t": "🟢 SÌ, CONDIVIDIAMO I NUMERI", "p": 0}]},
+    {"area": "SQUADRA", "testo": "ERRORE: CERCHI IL COLPEVOLE O LA CAUSA?", "sotto": "Onestamente: chi ha sbagliato o dov'è il buco nel processo?", "lezione": "Le persone sbagliano se il processo è confuso. Aggiustare la procedura è definitivo.", "opzioni": [{"t": "🔴 CHI HA SBAGLIATO?", "p": 1}, {"t": "🟢 DOVE È FALLITO IL PROCESSO?", "p": 0}]},
+    {"area": "STRATEGIA", "testo": "PRENDI DECISIONI SUI DATI O SULL'INTUITO?", "sotto": "Report freddi o sensazioni della pancia?", "lezione": "L'intuito è spesso un pregiudizio mascherato. Fidati di Excel.", "opzioni": [{"t": "🔴 INTUITO / PANCIA", "p": 1}, {"t": "🟢 DATI / REPORT", "p": 0}]},
+    {"area": "STRATEGIA", "testo": "HAI IL CORAGGIO DI DIRE 'NO' A UN CLIENTE?", "sotto": "Se è tossico o fuori target, lo licenzi?", "lezione": "I soldi di un cliente tossico costano il triplo in stress e tempo.", "opzioni": [{"t": "🔴 NO, FATTURATO È TUTTO", "p": 1}, {"t": "🟢 SÌ, HO LICENZIATO CLIENTI", "p": 0}]},
+    {"area": "STRATEGIA", "testo": "CONOSCI IL TUO BEST SELLER PER MARGINE?", "sotto": "Cosa ti arricchisce davvero?", "lezione": "Spesso vendiamo tanto ciò che ci lascia briciole. Fermati e analizza.", "opzioni": [{"t": "🔴 NON SONO SICURO", "p": 1}, {"t": "🟢 SÌ, LO CONOSCO", "p": 0}]},
+    {"area": "STRATEGIA", "testo": "SAI QUANTO COSTA ACQUISIRE UN CLIENTE?", "sotto": "Marketing, tempo, campagne...", "lezione": "Se spendi 100 per incassare 50 di margine, stai pagando per lavorare.", "opzioni": [{"t": "🔴 IMPOSSIBILE SAPERLO", "p": 1}, {"t": "🟢 SÌ, IL CAC È CHIARO", "p": 0}]},
+    {"area": "STRATEGIA", "testo": "HAI UN PIANO SCRITTO PER I 12 MESI?", "sotto": "Non un sogno, un piano con date e nomi.", "lezione": "Se è nella testa, è un'allucinazione. Le aziende si basano sui progetti.", "opzioni": [{"t": "🔴 È NELLA MIA TESTA", "p": 1}, {"t": "🟢 SÌ, SCRITTO E CONDIVISO", "p": 0}]}
 ]
 
 # =================================================================
@@ -67,7 +82,6 @@ if 'area_scores' not in st.session_state: st.session_state.area_scores = {"SOLDI
 if 'ansia_complete' not in st.session_state: st.session_state.ansia_complete = False
 if 'show_feedback' not in st.session_state: st.session_state.show_feedback = False
 if 'timer_running' not in st.session_state: st.session_state.timer_running = False
-if 'start_time' not in st.session_state: st.session_state.start_time = 0
 
 # =================================================================
 # 4. INTERFACCIA E MENU
@@ -79,7 +93,7 @@ menu = st.selectbox("COSA DEVI FARE OGGI?", ["🏠 Home Page", "📊 Diagnosi St
 # --- 🏠 HOME PAGE ---
 if menu == "🏠 Home Page":
     st.subheader("Basta correre sulla ruota.")
-    st.markdown("<div class='info-box'>Benvenuto, Ammiraglio. Questa è la tua centrale di comando. Identifica i blocchi e riprenditi il tuo tempo.</div>", unsafe_allow_html=True)
+    st.markdown("<div class='info-box'>Benvenuto, Ammiraglio. Questa è la tua centrale di comando. Identifica i blocchi e riprenditi la tua libertà imprenditoriale.</div>", unsafe_allow_html=True)
     st.image("https://www.comunicattivamente.it/wp-content/uploads/2023/logo-comunicattivamente.png", width=150)
 
 # --- 📊 DIAGNOSI (ANSIA SPA) ---
@@ -88,7 +102,7 @@ elif menu == "📊 Diagnosi Strategica (Ansia SPA)":
         step = st.session_state.step_ansia
         if step < len(domande_ansia):
             item = domande_ansia[step]
-            st.write(f"**QUESITO {step + 1} di {len(domande_ansia)}**")
+            st.write(f"**AREA: {item['area']}** | Quesito {step + 1} di {len(domande_ansia)}")
             st.header(item['testo'])
             if not st.session_state.show_feedback:
                 c1, c2 = st.columns(2)
@@ -104,20 +118,34 @@ elif menu == "📊 Diagnosi Strategica (Ansia SPA)":
                     st.session_state.step_ansia += 1; st.session_state.show_feedback = False; st.rerun()
         else: st.session_state.ansia_complete = True; st.rerun()
     else:
-        st.subheader("RISULTATO DIAGNOSI")
-        st.write(f"Punteggio Ansia: {st.session_state.score_ansia}")
-        if st.button("🔄 REIMPOSTA TEST"): st.session_state.step_ansia = 0; st.session_state.ansia_complete = False; st.rerun()
+        st.subheader("📊 LA TUA PROGNOSI")
+        score = st.session_state.score_ansia
+        if score <= 4:
+            titolo, colore, desc = "PROFILO A: L'OROLOGIO SVIZZERO", "#d4edda", "Ottimo lavoro. Sei nell'1% degli imprenditori sani."
+        elif score <= 12:
+            titolo, colore, desc = "PROFILO B: IL CRICETO STANCO", "#fff3cd", "Sei nella media. L'azienda regge ma tu stai esaurendo l'energia."
+        else:
+            titolo, colore, desc = "PROFILO C: L'AZIENDA POSSEDUTA", "#f8d7da", "Allarme Rosso. Sei prigioniero di un sistema inefficiente."
+        st.markdown(f"<div class='profile-box' style='background-color: {colore};'><h3>{titolo}</h3><p>{desc}</p></div>", unsafe_allow_html=True)
+        st.write("")
+        st.markdown("### 🚑 KIT DI SOPRAVVIVENZA")
+        critiche = sorted(st.session_state.area_scores.items(), key=lambda x: x[1], reverse=True)
+        for area, punti in critiche[:3]:
+            if punti > 0:
+                if area == "SOLDI": st.info("💰 **SOLDI:** Smetti di guardare l'incasso. Chiedi il MARGINE reale domani.")
+                if area == "TEMPO": st.info("⏰ **TEMPO:** Disattiva le notifiche. Blocca due slot da 30 min per le mail.")
+                if area == "SQUADRA": st.info("👥 **SQUADRA:** Registra un video mentre lavori. Ecco la tua prima procedura.")
+                if area == "STRATEGIA": st.info("🎯 **STRATEGIA:** Analizza i clienti. Trova il più tossico e lascialo andare.")
+        if st.button("🔄 RICOMINCIA"): st.session_state.step_ansia = 0; st.session_state.ansia_complete = False; st.session_state.score_ansia = 0; st.session_state.area_scores = {"SOLDI": 0, "TEMPO": 0, "SQUADRA": 0, "STRATEGIA": 0}; st.rerun()
 
 # --- 🛠️ PRONTO INTERVENTO (TOOLKIT) ---
 elif menu == "🛠️ Pronto Intervento (Toolkit)":
-    tool = st.radio("Scegli lo strumento di emergenza:", 
-                    ["💸 Timer dello Spreco", "🔄 Calcolatore Delega", "🔔 Tassa sulle Notifiche", "📊 SOS Margine"], 
-                    horizontal=True)
+    tool = st.radio("Seleziona strumento:", ["💸 Timer dello Spreco", "🔄 Calcolatore Delega", "🔔 Tassa sulle Notifiche", "🧗 Stipendio Reale"], horizontal=True)
     st.divider()
 
     if tool == "💸 Timer dello Spreco":
         st.write("### 💸 Timer dello Spreco")
-        st.markdown("<p class='tool-desc'>Avvia il timer e guarda in tempo reale quanto capitale stai bruciando in una chiacchierata senza ordine del giorno.</p>", unsafe_allow_html=True)
+        st.markdown("<p class='tool-desc'>Avvia il timer e guarda quanto ti costa una riunione senza un obiettivo stabilito.</p>", unsafe_allow_html=True)
         c1, c2 = st.columns(2)
         n_p = c1.number_input("Partecipanti", 1, 50, 4)
         costo_h = c2.number_input("Costo orario medio (€)", 1, 500, 45)
@@ -126,55 +154,49 @@ elif menu == "🛠️ Pronto Intervento (Toolkit)":
             if st.button("▶️ AVVIA RIUNIONE", type="primary"):
                 st.session_state.timer_running = True; st.session_state.start_time = time.time(); st.rerun()
         else:
-            if st.button("🛑 STOP / RESET RIUNIONE"): st.session_state.timer_running = False; st.rerun()
+            if st.button("🛑 STOP / RESET"): st.session_state.timer_running = False; st.rerun()
             ph = st.empty()
             while st.session_state.timer_running:
-                bruciato = (time.time() - st.session_state.start_time) * costo_al_sec
-                ph.markdown(f"<div class='timer-box'>{bruciato:.2f} €</div>", unsafe_allow_html=True)
+                ph.markdown(f"<div class='timer-box'>{(time.time() - st.session_state.start_time) * costo_al_sec:.2f} €</div>", unsafe_allow_html=True)
                 time.sleep(1)
 
     elif tool == "🔄 Calcolatore Delega":
         st.write("### 🔄 Calcolatore di Libertà")
-        st.markdown("<p class='tool-desc'>Quanto tempo (e vita) ti restituisce scrivere una procedura oggi invece di rispiegarla per sempre?</p>", unsafe_allow_html=True)
-        with st.container(border=True):
-            tempo_compito = st.number_input("Minuti per spiegare/fare il compito ogni volta", 5, 300, 30)
-            frequenza = st.slider("Quante volte al mese capita?", 1, 30, 4)
-            ore_risparmiate = (tempo_compito * frequenza * 12) / 60
-            st.write(f"### Risparmio Annuo: **{ore_risparmiate:.1f} Ore**")
-            if st.button("VEDI VALORE DELEGA", type="primary"):
-                st.success(f"Scrivere una procedura oggi ti regala circa {int(ore_risparmiate/8)} giorni lavorativi all'anno. Smettila di spiegare, inizia a clonarti!")
+        st.markdown("<p class='tool-desc'>Quanto tempo ti restituisce scrivere una procedura oggi invece di rispiegarla per sempre?</p>", unsafe_allow_html=True)
+        min_c = st.number_input("Minuti per spiegare/fare ogni volta", 5, 300, 30)
+        freq = st.slider("Volte al mese", 1, 30, 4)
+        risparmio_h = (min_c * freq * 12) / 60
+        st.write(f"### Risparmio Annuo: **{risparmio_h:.1f} Ore**")
+        if st.button("VEDI VALORE DELEGA", type="primary"):
+            st.success(f"Scrivere una procedura ti regala circa {int(risparmio_h/8)} giorni di ferie all'anno.")
 
     elif tool == "🔔 Tassa sulle Notifiche":
-        st.write("### 🔔 Tassa sulle Notifiche")
-        st.markdown("<p class='tool-desc'>Ogni 'Ding' ti scollega il cervello per 15 minuti. Calcola il costo occulto delle tue interruzioni.</p>", unsafe_allow_html=True)
-        distrazioni = st.number_input("Quante volte al giorno guardi il telefono/mail per notifiche?", 5, 200, 30)
-        costo_tua_ora = st.number_input("Quanto vale un'ora del tuo tempo? (€)", 20, 500, 100)
-        # 15 min di recupero focus (scienza)
-        ore_perse = (distrazioni * 15) / 60
-        st.error(f"Perdi {ore_perse:.1f} ore di focus al giorno.")
-        if st.button("CALCOLA TASSA NOTIFICHE", type="primary"):
-            st.subheader(f"Costo giornaliero: € {ore_perse * costo_tua_ora:.2f}")
-            st.info("Non sei produttivo, sei reattivo. Spegni tutto se vuoi produrre valore.")
+        st.write("### 🔔 Tassa sulle Notifiche (Money Edition)")
+        st.markdown("<p class='tool-desc'>Ogni interruzione costa 15 min di focus. Quanto ti costa economicamente essere reattivo?</p>", unsafe_allow_html=True)
+        ding = st.number_input("Volte al giorno che guardi il telefono per notifiche", 5, 200, 30)
+        valore_h = st.number_input("Quanto vale un'ora del tuo tempo strategico? (€)", 20, 1000, 100)
+        ore_perse = (ding * 15) / 60
+        costo_die = ore_perse * valore_h
+        st.error(f"Oggi stai buttando: € {costo_die:.2f}")
+        if st.button("CALCOLA TASSA ANNUALE", type="primary"):
+            st.subheader(f"Spreco Annuo: € {costo_die * 220:,.0f}")
+            st.info("Spegnere le notifiche è l'investimento più redditizio che puoi fare.")
 
-    elif tool == "📊 SOS Margine":
-        st.write("### 📊 SOS Margine")
-        st.markdown("<p class='tool-desc'>Stai guadagnando o stai solo scambiando banconote? Verifica se il tuo ricarico è sano.</p>", unsafe_allow_html=True)
-        c1, c2 = st.columns(2)
-        acq = c1.number_input("Prezzo Acquisto (no IVA) €", 0.1, 5000.0, 10.0)
-        ven = c2.number_input("Prezzo Menù (con IVA) €", 0.1, 5000.0, 30.0)
-        netto = ven / 1.22
-        margine = ((netto - acq) / netto) * 100
-        st.write(f"## Margine Reale: {margine:.1f}%")
-        if margine < 65: st.error("🚨 ATTENZIONE: Margine pericoloso. Stai lavorando per il fornitore.")
-        else: st.success("✅ Margine in salute. Continua così!")
+    elif tool == "🧗 Stipendio Reale":
+        st.write("### 🧗 Il Paradosso del Titolare")
+        st.markdown("<p class='tool-desc'>Calcola quanto guadagni davvero all'ora, considerando tutto il tempo passato a spegnere incendi.</p>", unsafe_allow_html=True)
+        guadagno = st.number_input("Tuo guadagno mensile netto (prelievi titolare) €", 1000, 20000, 3000)
+        ore_lavoro = st.number_input("Ore passate al lavoro (o a pensarci) a settimana", 20, 100, 50)
+        paga_h = guadagno / (ore_lavoro * 4.3)
+        st.write(f"## Paga Oraria Reale: € {paga_h:.2f}")
+        if paga_h < 15: st.error("🚨 Guadagni come un dipendente junior, ma con tutti i rischi. Qualcosa non va.")
+        else: st.success("✅ La tua paga oraria è dignitosa, ma possiamo migliorarla organizzando.")
 
 # --- FOOTER ---
 st.markdown(f"""
     <div class="footer">
-        <b>Daniele Salvatori</b><br>
-        <i>Partner SuPeR | Esorcista Aziendale</i><br><br>
-        📞 <a href="tel:+393929334563">+39 392 933 4563</a><br>
-        💬 <a href="https://wa.me/393929334563">Chatta su WhatsApp</a><br>
+        <b>Daniele Salvatori</b><br><i>Esorcista Aziendale | Partner SuPeR</i><br><br>
+        📞 <a href="tel:+393929334563">+39 392 933 4563</a> | 💬 <a href="https://wa.me/393929334563">WhatsApp</a><br>
         🌐 <a href="https://www.comunicattivamente.it">www.comunicattivamente.it</a>
     </div>
 """, unsafe_allow_html=True)
