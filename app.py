@@ -4,7 +4,7 @@ import time
 # --- CONFIGURAZIONE PAGINA ---
 st.set_page_config(page_title="Comunicattivamente Hub", page_icon="🛡️", layout="centered")
 
-# --- STILE CSS (Blindato, Anti-Dark Mode, Rosso #dc061e) ---
+# --- STILE CSS (Blindato, Rosso #dc061e, Anti-Dark Mode) ---
 st.markdown("""
     <style>
     .stApp { background-color: #ffffff !important; }
@@ -44,17 +44,17 @@ menu = st.selectbox("COSA VUOI FARE OGGI?", ["🏠 Home Page", "📊 Diagnosi St
 st.divider()
 
 if menu == "🏠 Home Page":
-    st.subheader("Basta correre sulla ruota.")
-    st.markdown("<div class='info-box'>Benvenuto, Ammiraglio. Questa app è il tuo centro di comando digitale. Scegli uno strumento per iniziare l'esorcismo.</div>", unsafe_allow_html=True)
-    st.write("📖 **Ansia SPA:** Per la strategia e i numeri.")
-    st.write("📧 **La Riunione...:** Per i protocolli operativi quotidiani.")
+    st.subheader("Benvenuto a bordo, Ammiraglio.")
+    st.markdown("<div class='info-box'>Hai in mano il timone della tua azienda. Usa gli strumenti per eliminare il rumore e iniziare a navigare verso il margine.</div>", unsafe_allow_html=True)
+    st.write("📈 **Strategia:** Ansia SPA.")
+    st.write("⚙️ **Operatività:** La Riunione poteva essere una Mail.")
 
 elif menu == "📊 Diagnosi Strategica (Ansia SPA)":
     if not st.session_state.ansia_complete:
         step = st.session_state.step_ansia
         if step < len(domande_ansia):
             item = domande_ansia[step]
-            st.write(f"**DOMANDA {step + 1} di {len(domande_ansia)}**")
+            st.markdown(f"<div class='area-header'>QUESITO {step + 1} di {len(domande_ansia)}</div>", unsafe_allow_html=True)
             st.header(item['testo'])
             st.write(f"*{item['sotto']}*")
             st.divider()
@@ -70,20 +70,20 @@ elif menu == "📊 Diagnosi Strategica (Ansia SPA)":
             st.session_state.ansia_complete = True
             st.rerun()
     else:
-        st.subheader("RISULTATO DIAGNOSI")
+        st.subheader("LA TUA DIAGNOSI")
         score = st.session_state.score_ansia
-        if score <= 2: st.success("PROFILO: GAZZELLA. Ottimo lavoro.")
-        elif score <= 6: st.warning("PROFILO: CRICETO. La ruota sta cigolando.")
-        else: st.error("PROFILO: POSSEDUTO. Serve un esorcismo immediato.")
-        if st.button("RICOMINCIA TEST", type="primary"):
+        if score <= 2: st.success("PROFILO: GAZZELLA. Ottimo!")
+        elif score <= 6: st.warning("PROFILO: CRICETO. Attenzione.")
+        else: st.error("PROFILO: POSSEDUTO. Esorcismo urgente.")
+        if st.button("REIMPOSTA TEST", type="primary"):
             st.session_state.step_ansia = 0
             st.session_state.score_ansia = 0
             st.session_state.ansia_complete = False
             st.rerun()
 
 elif menu == "🛠️ Pronto Intervento (Toolkit)":
-    st.subheader("Protocolli Operativi")
-    tool = st.radio("Scegli lo strumento:", ["💸 Calcola lo Spreco", "📅 Invito Intelligente", "📡 Filtro dell'Urgenza"])
+    st.subheader("Kit di Sopravvivenza Digitale")
+    tool = st.radio("Seleziona:", ["💸 Calcola lo Spreco", "📅 Invito Intelligente", "📡 Filtro Urgenza", "📑 Generatore di Procedure (SOP)"])
     st.divider()
 
     if tool == "💸 Calcola lo Spreco":
@@ -93,30 +93,33 @@ elif menu == "🛠️ Pronto Intervento (Toolkit)":
         st.error(f"VALORE BRUCIATO: {n * c * h} €")
 
     elif tool == "📅 Invito Intelligente":
-        tipo = st.selectbox("Tipo di incontro:", ["Chiamata (15 min)", "Meeting (30 min)", "Strategia (1 ora)"])
-        link = st.text_input("Il tuo link agenda:", "https://calendly.com/tuonome")
+        tipo = st.selectbox("Tipo:", ["Chiamata", "Meeting", "Strategia"])
+        link = st.text_input("Link Agenda:", "https://calendly.com/tuonome")
         if st.button("GENERA INVITO", type="primary"):
-            st.code(f"Ciao, per fissare la nostra {tipo.lower()} ti lascio il link alla mia agenda: {link}. Scegli lo slot più comodo!", language="text")
+            st.code(f"Ciao, per fissare la nostra {tipo.lower()} ti lascio il link alla mia agenda: {link}. Scegli lo slot!", language="text")
 
-    elif tool == "📡 Filtro dell'Urgenza":
-        st.write("Cosa devi comunicare?")
-        msg_type = st.selectbox("Seleziona:", ["Devo mandare un report/documento", "Ho una domanda da sì/no", "C'è un problema urgente (scade ora)", "Devo pianificare una attività futura"])
-        if st.button("QUALE STRUMENTO USO?", type="primary"):
-            if "report" in msg_type or "futura" in msg_type:
-                st.success("USA LA MAIL. Non interrompere il flusso degli altri per qualcosa che può aspettare.")
-            elif "sì/no" in msg_type:
-                st.warning("USA LA CHAT. Sii breve e diretto. Non aspettare il 'Ciao come va'.")
-            else:
-                st.error("ALZA IL TELEFONO. Le urgenze vere si risolvono a voce in 2 minuti.")
+    elif tool == "📡 Filtro Urgenza":
+        msg = st.selectbox("Situazione:", ["Report/Doc", "Domanda Sì/No", "Urgenza reale", "Pianificazione"])
+        if st.button("STRUMENTO DA USARE", type="primary"):
+            if "Report" in msg or "Pianificazione" in msg: st.success("MAIL (Asincrona)")
+            elif "Sì/No" in msg: st.warning("CHAT (Sincrona rapida)")
+            else: st.error("VOCE (Risoluzione immediata)")
+
+    elif tool == "📑 Generatore di Procedure (SOP)":
+        st.write("Crea la struttura per la tua prossima procedura:")
+        titolo = st.text_input("Cosa stiamo clonando?", "Esempio: Inserimento Fattura")
+        ingr = st.text_area("Ingredienti (Cosa serve?)", "Password gestionale, PDF fattura...")
+        passaggi = st.text_area("Preparazione (Passaggi numerati)", "1. Apri sito...\n2. Inserisci...")
+        if st.button("GENERA SCHEMA PROCEDURA", type="primary"):
+            sop = f"--- PROCEDURA: {titolo.upper()} ---\n\nINGREDIENTI:\n{ingr}\n\nPASSAGGI:\n{passaggi}\n\n[Nota: Se puoi, registra un video di 2 min mentre lo fai!]"
+            st.code(sop, language="text")
 
 elif menu == "📖 Pillole di Efficienza (Bignami)":
-    st.subheader("Bignami dell'Esorcista")
-    with st.expander("📖 PROTOCOLLO 1: LA FONTE DELLA VERITÀ"):
-        st.write("Mai più allegati. Solo link al Cloud. Una sola cartella AZIENDA.")
-    with st.expander("📅 PROTOCOLLO 2: AGENDA DI SCHRÖDINGER"):
-        st.write("Se non è sul calendario, non esiste. Usa link di prenotazione automatica.")
-    with st.expander("📡 PROTOCOLLO 3: MAIL VS CHAT"):
-        st.write("La mail è asincrona (4-8h). La chat è estintore (30 sec). Spegni le notifiche.")
+    st.subheader("I Comandamenti dell'Efficienza")
+    with st.expander("🛡️ PROTOCOLLO 4: CLONAZIONE UMANA"):
+        st.write("Smetti di spiegare a voce. Registra un video mentre lavori (Loom) e salvalo nella cartella PROCEDURE. Se non è registrato, non esiste.")
+    with st.expander("📡 PROTOCOLLO 3: RUMORE VS SEGNALE"):
+        st.write("La mail è la tua fortezza. La chat è l'estintore. Spegni le notifiche o sarai schiavo del Ding.")
 
 st.markdown("---")
 st.write("Daniele Salvatori | daniele@comunicattivamente.it")
