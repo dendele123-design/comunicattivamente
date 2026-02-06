@@ -174,6 +174,6 @@ else:
     """, unsafe_allow_html=True)
 
     st.write("---")
-    st.link_button("🌐 VEDI TUTTE LE NOSTRE WEB APP", "https://hub-comunicattivamente.streamlit.app")
+    st.link_button("🌐 VEDI TUTTE LE NOSTRE WEB APP", "https://app-comunicattivamente-center.streamlit.app/")
     if st.button("🔄 RICOMINCIA"):
         st.session_state.step = 0; st.session_state.total_score = 0; st.rerun()
