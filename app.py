@@ -2,104 +2,131 @@ import streamlit as st
 import time
 
 # --- CONFIGURAZIONE PAGINA ---
-st.set_page_config(page_title="Comunicattivamente Hub", page_icon="🎯", layout="centered")
+st.set_page_config(page_title="Comunicattivamente Hub", page_icon="🛡️", layout="centered")
 
-# --- STILE CSS (HARDCODED - ROSSO #dc061e) ---
+# --- STILE CSS (Blindato contro Dark Mode e Ottimizzato Mobile) ---
 st.markdown("""
     <style>
+    /* FORZA SFONDO BIANCO E TESTO NERO OVUNQUE */
     .stApp { background-color: #ffffff !important; }
-    html, body, [class*="css"], .stMarkdown, p, h1, h2, h3, h4, span, label {
+    
+    html, body, [class*="css"], .stMarkdown, p, h1, h2, h3, h4, span, label, li {
         color: #1a1a1a !important;
     }
-    
-    /* SIDEBAR */
-    section[data-testid="stSidebar"] {
+
+    /* TITOLI IN ROSSO ISTITUZIONALE */
+    h1, h2, h3 { color: #dc061e !important; }
+
+    /* SELECTBOX (IL NUOVO MENU) */
+    div[data-baseweb="select"] > div {
         background-color: #f1f3f6 !important;
-        border-right: 2px solid #dc061e !important;
+        border: 2px solid #dc061e !important;
+        border-radius: 10px !important;
     }
 
-    /* BOTTONI ROSSI */
+    /* BOTTONE ROSSO */
     div.stButton > button:first-child[kind="primary"] {
-        background-color: #dc061e !important; color: #ffffff !important; border: none !important;
-        width: 100%; height: 3.5em; font-weight: bold; text-transform: uppercase;
+        background-color: #dc061e !important; color: #ffffff !important; 
+        border: none !important; width: 100%; height: 3.5em; font-weight: bold;
     }
     
-    /* BOX INFO */
+    /* BOX INFO / LEZIONE */
     .info-box {
         background-color: #f8f9fa !important; border-left: 8px solid #dc061e !important;
-        padding: 20px; border-radius: 10px; margin-bottom: 20px;
+        padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
     }
 
-    /* TITOLI */
-    h1, h2 { color: #dc061e !important; }
-    
-    header {visibility: hidden !important;} footer {visibility: hidden !important;}
+    /* EXPANDER (Bignami) */
+    .stAttendance { background-color: #f1f3f6 !important; }
+
+    header {visibility: hidden !important;} footer {visibility: hidden !important;} #MainMenu {visibility: hidden !important;}
     </style>
     """, unsafe_allow_html=True)
 
-# --- NAVIGAZIONE SIDEBAR ---
-with st.sidebar:
-    st.title("🛡️ HUB ESORCISMO")
-    st.write("Seleziona lo strumento:")
-    menu = st.radio("", ["🏠 Home", "📊 Diagnosi (Ansia SPA)", "🛠️ Pronto Intervento (Toolkit)", "📖 Bignami Interattivo"])
-    st.divider()
-    st.write("Daniele Salvatori")
-    st.write("daniele@comunicattivamente.it")
+# --- HEADER FISSO ---
+st.write("# 🛡️")
+st.title("HUB DELL'EFFICIENZA")
+st.write("Daniele Salvatori | Comunicattivamente")
 
-# --- HOME PAGE ---
-if menu == "🏠 Home":
-    st.title("BENVENUTO NELL'HUB DELL'EFFICIENZA")
+# --- NAVIGAZIONE CENTRALE (Sostituisce la Sidebar) ---
+st.markdown("---")
+menu = st.selectbox("COSA VUOI FARE OGGI?", 
+                    ["🏠 Home Page", 
+                     "📊 Diagnosi Strategica (Ansia SPA)", 
+                     "🛠️ Pronto Intervento (Toolkit)", 
+                     "📖 Pillole di Efficienza (Bignami)"])
+st.markdown("---")
+
+# --- CONTENUTO DINAMICO ---
+
+if menu == "🏠 Home Page":
+    st.subheader("Smetti di essere un criceto.")
     st.markdown("""
     <div class='info-box'>
-    <b>Hai in mano gli strumenti per smettere di essere un criceto.</b><br><br>
-    Qui non si chiacchiera, si agisce. Seleziona uno strumento dal menu a sinistra per iniziare il tuo percorso di liberazione dal caos.
+    Benvenuto nel tuo centro di comando. Questa app è il compagno digitale dei libri <b>Ansia SPA</b> e <b>La riunione poteva essere una mail</b>.<br><br>
+    Usa il menù qui sopra per navigare tra gli strumenti di esorcismo aziendale.
     </div>
     """, unsafe_allow_html=True)
     
-    col1, col2 = st.columns(2)
-    with col1:
-        st.subheader("L'Esorcismo Strategico")
-        st.write("Analizza i 7 Peccati Capitali della tua azienda con il test completo di **Ansia SPA**.")
-    with col2:
-        st.subheader("L'Esorcismo Operativo")
-        st.write("Smetti di sprecare tempo ora. Usa il calcolatore di costi e i protocolli di **La riunione poteva essere una mail**.")
+    st.write("### I tuoi strumenti:")
+    st.write("✅ **Diagnosi Strategica:** Scopri quanto è grave la 'possessione' della tua azienda.")
+    st.write("✅ **Pronto Intervento:** Calcola lo spreco delle riunioni e scarica i protocolli.")
+    st.write("✅ **Bignami:** I concetti chiave pronti all'uso.")
 
-# --- DIAGNOSI (ANSIA SPA) ---
-elif menu == "📊 Diagnosi (Ansia SPA)":
-    st.title("📊 DIAGNOSI ANSIA SPA")
-    st.write("Questa è l'area dedicata all'analisi profonda della tua azienda (Libro 1).")
-    st.info("Qui caricheremo le tue 20 domande originali di Ansia SPA.")
-    if st.button("INIZIA TEST STRATEGICO", type="primary"):
-        st.write("Sviluppo in corso... (Qui inseriremo la logica del tuo test precedente)")
+elif menu == "📊 Diagnosi Strategica (Ansia SPA)":
+    st.subheader("Analisi Profonda (Libro 1)")
+    st.write("Rispondi onestamente. Qui non ci sono capi, solo dati.")
+    
+    # ESEMPIO DI LOGICA TEST (Andrà integrata con le tue 20 domande)
+    st.info("Caricamento del test di Ansia SPA in corso...")
+    if st.button("AVVIA IL TEST COMPLETO", type="primary"):
+        st.write("Test in fase di configurazione...")
 
-# --- PRONTO INTERVENTO ---
 elif menu == "🛠️ Pronto Intervento (Toolkit)":
-    st.title("🛠️ PRONTO INTERVENTO")
-    st.write("Strumenti rapidi per smettere di farsi del male (Libro 2).")
+    st.subheader("Strumenti Digitali (Libro 2)")
     
-    tab1, tab2 = st.tabs(["💸 Calcola Spreco", "📧 Generatore 'No'"])
+    scelta_tool = st.radio("Scegli lo strumento:", ["💸 Calcolatore dello Spreco", "📧 Protocollo 'No Riunione'"])
     
-    with tab1:
-        st.subheader("Quanto ti costa questa riunione?")
-        num = st.number_input("Partecipanti", min_value=1, value=3)
-        costo = st.number_input("Costo orario medio (€)", min_value=1, value=40)
-        ore = st.slider("Durata (ore)", 0.5, 4.0, 1.0, 0.5)
+    if scelta_tool == "💸 Calcolatore dello Spreco":
+        st.markdown("<div class='info-box'>Inserisci i dati reali e guarda quanto stai bruciando.</div>", unsafe_allow_html=True)
+        c1, c2 = st.columns(2)
+        with c1:
+            num = st.number_input("Partecipanti", min_value=1, value=4)
+            ore = st.slider("Durata (ore)", 0.5, 4.0, 1.0, 0.5)
+        with c2:
+            costo = st.number_input("Costo orario medio (€)", min_value=1, value=45)
         
         totale = num * costo * ore
         st.error(f"VALORE BRUCIATO: {totale} €")
-        st.write("Potevi scrivere una mail e salvare questo margine.")
+        st.write("💡 *Con questa cifra potevi pagare una campagna marketing o un pranzo stellato al team. Invece avete parlato del nulla.*")
 
-    with tab2:
-        st.subheader("Generatore di Risposte 'Efficaci'")
-        motivo = st.selectbox("Perché non vuoi partecipare?", ["Manca l'agenda", "Siamo in troppi", "Posso risolvere via mail", "Ho un focus importante"])
-        if st.button("GENERA MAIL DI RISPOSTA", type="primary"):
-            st.code(f"Gentile [Nome],\nIn merito alla riunione proposta, credo che {motivo.lower()}.\nPropongo di procedere via mail o aggiornarci appena ci saranno dati certi.\nBuon lavoro.")
+    elif scelta_tool == "📧 Protocollo 'No Riunione'":
+        st.write("Scegli la situazione e copia lo script:")
+        motivo = st.selectbox("Situazione:", ["Manca l'agenda", "Riunione troppo lunga", "Non sono necessario"])
+        
+        if motivo == "Manca l'agenda":
+            script = "Ciao [Nome], ho ricevuto l'invito. Dato che non è allegata un'agenda con gli obiettivi, propongo di rimandare finché non avremo punti chiari su cui decidere. Procediamo via mail?"
+        elif motivo == "Riunione troppo lunga":
+            script = "Ciao [Nome], credo che 2 ore siano troppe per questo tema. Propongo uno stand-up meeting di 15 minuti alle ore [X] o di risolvere i punti critici via chat."
+        else:
+            script = "Ciao [Nome], grazie per l'invito. Leggendo l'agenda, credo che il mio contributo non sia fondamentale in questa fase. Resto in attesa del verbale per agire sui punti di mia competenza."
+            
+        st.code(script, language="text")
+        st.write("*(Copia e incolla. Sii gentile, ma fermo come un Architetto).*")
 
-# --- BIGNAMI ---
-elif menu == "📖 Bignami Interattivo":
-    st.title("📖 PILLOLE DI ESORCISMO")
-    st.write("I concetti chiave dei due libri, senza giri di parole.")
-    with st.expander("ANSIA SPA: I 3 pilastri del Margine"):
-        st.write("1. Il fatturato è vanità.\n2. Il margine è sanità.\n3. La cassa è realtà.")
-    with st.expander("LA RIUNIONE...: I 3 pilastri del Tempo"):
-        st.write("1. Se non è scritto, non esiste.\n2. Gli allegati sono il demonio.\n3. L'agenda di Schrödinger uccide l'azienda.")
+elif menu == "📖 Pillole di Efficienza (Bignami)":
+    st.subheader("La Conoscenza in 60 secondi")
+    
+    with st.expander("📖 ANSIA SPA (Strategia)"):
+        st.write("- **Il test dell'autobus:** Se sparisci un mese, l'azienda crolla?")
+        st.write("- **Fatturato vs Margine:** Non confondere il giro d'affari con i soldi in tasca.")
+        st.write("- **Licenziare i clienti:** I vampiri ti rubano l'anima, non solo il tempo.")
+        
+    with st.expander("📧 LA RIUNIONE... (Operatività)"):
+        st.write("- **La Fonte della Verità:** Una sola cartella cloud, zero allegati via mail.")
+        st.write("- **Mail vs Chat:** Se non scade tra 10 minuti, scrivi una mail.")
+        st.write("- **Verbali istantanei:** Chi fa cosa, entro quando. O la riunione non è esistita.")
+
+# --- FOOTER CONTATTI ---
+st.markdown("---")
+st.write("📧 daniele@comunicattivamente.it | 📞 +39 392 933 4563")
